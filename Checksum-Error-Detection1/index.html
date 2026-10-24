@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checksum Error Detection Simulator</title>
+
+    <!-- Connect CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+                Checksum<span>Simulator</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#simulator">Simulator</a></li>
+                <li><a href="#working">How It Works</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- Home Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+
+            <p class="small-title">
+                COMPUTER NETWORKS PROJECT
+            </p>
+
+            <h1>Checksum Error Detection Simulator</h1>
+
+            <p>
+                Understand how checksum techniques help detect
+                errors during data transmission in computer networks.
+                Enter binary data, generate a checksum, simulate
+                transmission, and verify the received data.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#simulator" class="btn primary-btn">
+                    Start Simulation
+                </a>
+
+                <a href="#working" class="btn outline-btn">
+                    Learn How It Works
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section class="section" id="about">
+
+        <div class="section-heading">
+            <p class="small-title">ABOUT THE PROJECT</p>
+
+            <h2>What Is Checksum Error Detection?</h2>
+
+            <p>
+                A checksum is an error-detection technique used
+                in computer networks to check whether data may
+                have changed during transmission.
+            </p>
+        </div>
+
+        <div class="info-cards">
+
+            <div class="info-card">
+                <div class="card-icon">01</div>
+                <h3>Input Data</h3>
+                <p>
+                    Enter 8-bit binary data words that will be
+                    transmitted from the sender to the receiver.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="card-icon">02</div>
+                <h3>Generate Checksum</h3>
+                <p>
+                    Add the data words using one's-complement
+                    addition and invert the resulting 8 bits.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="card-icon">03</div>
+                <h3>Detect Errors</h3>
+                <p>
+                    Verify the received data and checksum to
+                    determine whether an error is detected.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Simulator Section -->
+    <section class="section simulator-section" id="simulator">
+
+        <div class="section-heading">
+            <p class="small-title">INTERACTIVE SIMULATION</p>
+
+            <h2>Try the Checksum Simulator</h2>
+
+            <p>
+                Follow the steps below to calculate a checksum,
+                simulate data transmission, and verify the result.
+            </p>
+        </div>
+
+        <div class="simulator-card">
+
+            <!-- Step 1: Enter Data -->
+            <div class="step-header">
+                <span>STEP 01</span>
+                <h3>Enter Original Data</h3>
+                <p>
+                    Enter binary words containing exactly
+                    8 bits each.
+                </p>
+            </div>
+
+            <div id="data-input-container">
+
+                <div class="input-row">
+                    <label for="word1">Data Word 1</label>
+
+                    <input
+                        type="text"
+                        id="word1"
+                        class="binary-input"
+                        placeholder="Example: 10110010"
+                        maxlength="8"
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="input-row">
+                    <label for="word2">Data Word 2</label>
+
+                    <input
+                        type="text"
+                        id="word2"
+                        class="binary-input"
+                        placeholder="Example: 11001010"
+                        maxlength="8"
+                        autocomplete="off"
+                    >
+                </div>
+
+            </div>
+
+            <div class="input-actions">
+
+                <button
+                    type="button"
+                    id="add-word-btn"
+                    class="btn secondary-btn"
+                >
+                    + Add Data Word
+                </button>
+
+                <button
+                    type="button"
+                    id="load-example-btn"
+                    class="btn outline-btn"
+                >
+                    Load Example
+                </button>
+
+            </div>
+
+            <button
+                type="button"
+                id="calculate-btn"
+                class="btn primary-btn main-action-btn"
+            >
+                Calculate Checksum
+            </button>
+
+
+            <!-- Original Data and Checksum -->
+            <div class="calculation-area">
+
+                <div class="result-item">
+                    <h4>Original Data</h4>
+                    <div
+                        id="original-data"
+                        class="binary-display"
+                    >—</div>
+                </div>
+
+                <div class="result-item">
+                    <h4>Generated Checksum</h4>
+                    <div
+                        id="generated-checksum"
+                        class="binary-display"
+                    >—</div>
+                </div>
+
+            </div>
+
+
+            <!-- Step 2: Sender -->
+            <div class="transmission-box">
+
+                <div class="step-header">
+                    <span>STEP 02</span>
+                    <h3>Sender</h3>
+                    <p>
+                        The sender transmits the data words
+                        together with the generated checksum.
+                    </p>
+                </div>
+
+                <div class="transmission-item">
+                    <h4>Data Sent</h4>
+                    <div id="sender-data" class="binary-display">
+                        —
+                    </div>
+                </div>
+
+                <div class="transmission-item">
+                    <h4>Checksum Sent</h4>
+                    <div id="sender-checksum" class="binary-display">
+                        —
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    id="send-btn"
+                    class="btn primary-btn"
+                >
+                    Send Data
+                </button>
+
+            </div>
+
+
+            <!-- Step 3: Transmission Error -->
+            <div id="error-section" class="section">
+
+                <div class="step-header">
+                    <span>STEP 03</span>
+                    <h3>Simulate Transmission</h3>
+                    <p>
+                        Choose whether to introduce an error
+                        during transmission.
+                    </p>
+                </div>
+
+                <div class="error-options">
+
+                    <button
+                        type="button"
+                        id="no-error-btn"
+                        class="btn option-btn"
+                    >
+                        Send Without Error
+                    </button>
+
+                    <button
+                        type="button"
+                        id="introduce-error-btn"
+                        class="btn danger-option"
+                    >
+                        Introduce an Error
+                    </button>
+
+                </div>
+
+                <div id="error-controls" class="error-controls">
+
+                    <div class="select-group">
+                        <label for="error-word">
+                            Select Data Word
+                        </label>
+
+                        <select id="error-word"></select>
+                    </div>
+
+                    <div class="select-group">
+                        <label for="error-bit">
+                            Select Bit Position
+                        </label>
+
+                        <select id="error-bit">
+                            <option value="0">Bit 1</option>
+                            <option value="1">Bit 2</option>
+                            <option value="2">Bit 3</option>
+                            <option value="3">Bit 4</option>
+                            <option value="4">Bit 5</option>
+                            <option value="5">Bit 6</option>
+                            <option value="6">Bit 7</option>
+                            <option value="7">Bit 8</option>
+                        </select>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="apply-error-btn"
+                        class="btn danger-option"
+                    >
+                        Apply Error
+                    </button>
+
+                </div>
+
+                <div id="error-display" class="error-display">
+
+                    <div class="result-item">
+                        <h4>Original Word</h4>
+                        <div
+                            id="error-original"
+                            class="binary-display"
+                        >—</div>
+                    </div>
+
+                    <div class="error-arrow">↓</div>
+
+                    <div class="result-item">
+                        <h4>Modified Word</h4>
+                        <div
+                            id="error-modified"
+                            class="binary-display"
+                        >—</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Step 4: Receiver -->
+            <div id="receiver-section" class="receiver-data">
+
+                <div class="step-header">
+                    <span>STEP 04</span>
+                    <h3>Receiver Verification</h3>
+                    <p>
+                        The receiver checks the received data
+                        and checksum to detect transmission errors.
+                    </p>
+                </div>
+
+                <div class="transmission-item">
+                    <h4>Received Data</h4>
+                    <div id="received-data" class="binary-display">
+                        —
+                    </div>
+                </div>
+
+                <div class="transmission-item">
+                    <h4>Received Checksum</h4>
+                    <div
+                        id="received-checksum"
+                        class="binary-display"
+                    >—</div>
+                </div>
+
+                <button
+                    type="button"
+                    id="verify-btn"
+                    class="btn primary-btn main-action-btn"
+                >
+                    Verify Checksum
+                </button>
+
+            </div>
+
+
+            <!-- Final Result -->
+            <div id="final-result" class="final-result">
+
+                <div id="result-icon" class="result-icon"></div>
+
+                <h3 id="result-title">Verification Result</h3>
+
+                <p id="result-message"></p>
+
+            </div>
+
+
+            <!-- Reset -->
+            <div class="reset-area">
+
+                <button
+                    type="button"
+                    id="reset-btn"
+                    class="btn reset-btn"
+                >
+                    Reset Simulation
+                </button>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- How It Works -->
+    <section class="section process-section" id="working">
+
+        <div class="section-heading">
+            <p class="small-title">LEARN THE PROCESS</p>
+
+            <h2>How Checksum Works</h2>
+
+            <p>
+                Checksum uses one's-complement addition to
+                generate a value that helps the receiver
+                detect errors in transmitted data.
+            </p>
+        </div>
+
+        <div class="steps-container">
+
+            <div class="learning-step">
+                <h3>1. Add Binary Words</h3>
+                <p>
+                    Add the 8-bit data words using binary addition.
+                </p>
+            </div>
+
+            <div class="learning-step">
+                <h3>2. Handle Carry</h3>
+                <p>
+                    Add any carry beyond 8 bits back to the
+                    lower 8 bits.
+                </p>
+            </div>
+
+            <div class="learning-step">
+                <h3>3. Invert the Bits</h3>
+                <p>
+                    Change each 0 to 1 and each 1 to 0 to
+                    generate the checksum.
+                </p>
+            </div>
+
+            <div class="learning-step">
+                <h3>4. Verify at Receiver</h3>
+                <p>
+                    Add the received words and checksum.
+                    An all-ones result means no error was detected.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Checksum Error Detection Simulator</h3>
+            <p>
+                A Computer Networks project demonstrating
+                checksum-based error detection.
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- Connect JavaScript -->
+    <script src="/js/script.js"></script>
+
+</body>
+</html>
